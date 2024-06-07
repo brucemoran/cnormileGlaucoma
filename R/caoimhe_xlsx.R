@@ -133,10 +133,11 @@ msigdb_pway_xlsx <- function(fgseaRes, tb, padj, TAG, OUTDIR){
 #' msigdb pathways genes to XLSX
 #'
 #' @param TAG character to tag output
+#' @param OUTDIR character where output is saved
 #' @return NULL, writes XLSX containing pathways as sheets, and genes in those significant pathway
 #' @export
 
-write_all_hallmarks <- function(TAG = "All_Hallmark_pathways"){
+write_all_hallmarks <- function(TAG = "All_Hallmark_Pathways", OUTDIR){
   msigdb_pathlist <- msigdb_pathways_to_list()
   wb <- openxlsx::createWorkbook(TAG)
   lapply(names(msigdb_pathlist), function(name){
@@ -149,7 +150,7 @@ write_all_hallmarks <- function(TAG = "All_Hallmark_pathways"){
     openxlsx::addWorksheet(wb, sheetName = sname)
     openxlsx::writeData(wb = wb, sheet = sname, x = msigdb_pathlist[[name]])
     openxlsx::saveWorkbook(wb = wb,
-                           file = paste0(TAG, ".xlsx"),
+                           file = paste0(paste0(OUTDIR, "/xlsx/"), TAG, ".xlsx"),
                            overwrite = TRUE)
   })
 }
